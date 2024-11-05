@@ -13,5 +13,6 @@ module.exports = merge(common, {
     ],
     host: '127.0.0.1',
     port: 9966,
+    allowedHosts: 'all',
   },
 });

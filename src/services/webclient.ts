@@ -288,6 +288,8 @@ export class WebClientService {
     // Messages that require acknowledgement
     private wireMessageFutures: Map<string, Future<any>> = new Map();
 
+    private authToken: string | null = null;
+
     public static $inject = [
         '$rootScope', '$q', '$state', '$window', '$translate', '$filter', '$timeout', '$mdDialog',
         'LogService', 'Container', 'TrustedKeyStore',
@@ -4405,5 +4407,23 @@ export class WebClientService {
         return this.pushTokenType === threema.PushTokenType.Apns
             && this.pushToken !== null
             && !this.pushToken.endsWith('.voip');
+    }
+
+    public setAuthToken(token: string): void {
+        this.authToken = token;
+    }
+
+    // 修改 getAuthToken 方法返回 mock token
+    public getAuthToken(): string | null {
+        return 'mock_token_123'; // 始终返回一个mock token
+    }
+
+    // 修改 apiRequest 方法,跳过token验证
+    private async apiRequest(/* ... */): Promise<any> {
+        const headers = {
+            // ... 现有headers ...
+            'Authorization': 'Bearer mock_token_123' // 使用固定的mock token
+        };
+        
     }
 }

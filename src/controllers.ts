@@ -19,6 +19,7 @@ import {FooterController} from './controllers/footer';
 import {HeaderController} from './controllers/header';
 import {StatusController} from './controllers/status';
 import {ThemeController} from './controllers/theme';
+import {Auth0Controller} from './controllers/auth0';
 
 angular.module('3ema.controllers', ['3ema.services'])
 
@@ -26,5 +27,6 @@ angular.module('3ema.controllers', ['3ema.services'])
 .controller('HeaderController', HeaderController)
 .controller('StatusController', StatusController)
 .controller('ThemeController', ThemeController)
+.controller('Auth0Controller', Auth0Controller)
 
 ;

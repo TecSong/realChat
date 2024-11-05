@@ -24,7 +24,7 @@
         </a>
     </div>
 
-    <div class="welcome">
+    <div class="welcome" ng-controller="Auth0Controller as auth0">
         <div ng-if="(ctrl.state === 'connecting' || ctrl.state === 'waiting') && ctrl.mode === 'scan'" class="scan">
             <div class="ios-only-warning" ng-if="ctrl.browser.safari">
                 <img src="img/safari.svg" alt="Safari">
@@ -237,5 +237,11 @@
             </md-button>
         </div>
 
+        <!-- Auth0登录按钮 -->
+        <div class="auth0-login">
+            <md-button class="md-raised md-primary" ng-click="auth0.login()">
+                {{ 'welcome.LOGIN_WITH_AUTH0' | translate }}
+            </md-button>
+        </div>
     </div>
 </div>

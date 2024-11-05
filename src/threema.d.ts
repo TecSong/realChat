@@ -953,4 +953,21 @@ declare namespace threema {
             createDrafts: () => Drafts;
         }
     }
+
+    interface ThreemaEnvironment {
+        // 现有配置...
+        
+        // Auth0配置
+        AUTH0_DOMAIN: string;
+        AUTH0_CLIENT_ID: string;
+        AUTH0_CLIENT_SECRET: string;
+    }
+
+    interface WebClientService {
+        // 认证相关
+        setAuthToken(token: string): void;
+        getAuthToken(): string | null;
+        
+        // 其他现有的WebClientService接口定义...
+    }
 }

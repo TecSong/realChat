@@ -31,3 +31,12 @@ export default {
     // Auto-generate a session password if none was entered.
     IN_MEMORY_SESSION_PASSWORD: false,
 } as threema.Config;
+
+// src/config.auth0.ts
+export const auth0Config = {
+    domain: 'dev-ptnikxuhkubmphus.us.auth0.com',
+    clientId: 'YNsUtcSNh4vNVStWF0B3JMNb9hTUhWV1',
+    redirectUri: `${window.location.origin}`,
+    audience: 'https://dev-ptnikxuhkubmphus.us.auth0.com/api/v2/',
+    scope: 'openid profile email'
+};

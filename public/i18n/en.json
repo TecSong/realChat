@@ -3,6 +3,9 @@
         "DESCRIPTION": "Chat from your desktop with Threema Web and have full access to all chats, contacts and media files."
     },
     "welcome": {
+        "LOGIN_WITH_AUTH0": "Login with WorldID",
+        "AUTH0_LOGIN_FAILED": "WorldID login failed. Please try again.",
+        "AUTH0_CALLBACK_FAILED": "WorldID authentication callback failed.",
         "ABORT": "Abort",
         "CONTINUE_ANYWAY": "Continue anyway",
         "DESKTOP_BETA_HINT": "Use the new desktop app now",

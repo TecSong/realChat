@@ -36,6 +36,7 @@ export class ControllerModelService {
     private readonly logService: LogService;
     private readonly webClientService: WebClientService;
     private readonly log: Logger;
+    private controllerName: string;
 
     public static $inject = ['$translate', '$mdDialog', 'LogService', 'WebClientService'];
     constructor($translate: ng.translate.ITranslateService, $mdDialog: ng.material.IDialogService,
@@ -45,6 +46,10 @@ export class ControllerModelService {
         this.logService = logService;
         this.webClientService = webClientService;
         this.log = logService.getLogger('ControllerModel-S');
+    }
+
+    public setControllerName(name: string): void {
+        this.controllerName = name;
     }
 
     public me(

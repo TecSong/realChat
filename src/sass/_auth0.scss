@@ -1,0 +1,13 @@
+.auth0-login {
+    margin-top: 16px;
+    width: 200px;
+    
+    &.md-button {
+        background-color: #eb5424;
+        color: white;
+        
+        &:hover {
+            background-color: darken(#eb5424, 10%);
+        }
+    }
+} 
