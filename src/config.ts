@@ -37,6 +37,7 @@ export const auth0Config = {
     domain: 'dev-ptnikxuhkubmphus.us.auth0.com',
     clientId: 'YNsUtcSNh4vNVStWF0B3JMNb9hTUhWV1',
     redirectUri: `${window.location.origin}`,
+    // redirectUri: 'https://952d-49-49-24-163.ngrok-free.app',
     audience: 'https://dev-ptnikxuhkubmphus.us.auth0.com/api/v2/',
     scope: 'openid profile email'
 };

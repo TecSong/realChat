@@ -17,15 +17,36 @@ export class Auth0Controller {
 
     private async initAuth0(): Promise<void> {
         try {
-            // 使用Auth0 SDK创建客户端
+            // 添加更多配置选项
             this.auth0Client = await createAuth0Client({
                 domain: auth0Config.domain,
                 clientId: auth0Config.clientId,
+                authorizationParams: {
+                    redirect_uri: window.location.origin,
+                },
+                // 添加缓存配置
+                // cacheLocation: 'localstorage', // 或 'memory'
+                // useCookiesForTransactions: true
             });
 
-            // 处理回调
+            // // 建议添加用户会话检查
+            // const isAuthenticated = await this.auth0Client.isAuthenticated();
+            // if (isAuthenticated) {
+            //     const user = await this.auth0Client.getUser();
+            //     // 恢复用户会话
+            //     this.$window.localStorage.setItem('auth0_user', JSON.stringify(user));
+            //     const token = await this.auth0Client.getTokenSilently();
+            //     this.webClientService.setAuthToken(token);
+            // }
+
             if (this.$window.location.search.includes('code=')) {
-                await this.handleCallback();
+                // 添加状态检查
+                if (this.$window.location.search.includes('state=')) {
+                    await this.handleCallback();
+                } else {
+                    console.error('Missing state parameter');
+                    throw new Error('Invalid authentication state');
+                }
             }
         } catch (error) {
             console.error('Auth0 initialization failed:', error);
@@ -34,18 +55,7 @@ export class Auth0Controller {
 
     public async login(): Promise<void> {
         try {
-            await this.auth0Client.loginWithRedirect(
-                {
-                    appState: {
-                        returnTo: '/messenger'
-                    },
-                    authorizationParams: {
-                        redirect_uri: auth0Config.redirectUri,
-                        audience: auth0Config.audience,
-                        scope: auth0Config.scope,
-                    }
-                }
-            );
+            await this.auth0Client.loginWithRedirect();
         } catch (error) {
             console.error('Auth0 login failed:', error);
             this.$scope.$emit('showAlert', {
@@ -57,35 +67,44 @@ export class Auth0Controller {
 
     private async handleCallback(): Promise<void> {
         try {
-            // 处理认证回调
-            console.log('handleCallback');
-            const { appState } = await this.auth0Client.handleRedirectCallback();
+            console.log('start handleCallback');
             
-            // 获取token
-            // const token = await this.auth0Client.getTokenSilently();
+            // 处理回调并验证结果
+            const result = await this.auth0Client.handleRedirectCallback();
+            if (!result || !result.appState) {
+                throw new Error('Invalid redirect callback response');
+            }
+            const { appState } = result;
             
-            // 存储token到WebClientService
-            // this.webClientService.setAuthToken(token);
+            // 获取并验证 token
+            const token = await this.auth0Client.getTokenSilently();
+            if (!token) {
+                throw new Error('Failed to obtain access token');
+            }
+            
+            // 存储 token
+            this.webClientService.setAuthToken(token);
             
             // 获取用户信息
-            this.auth0Client.getUser = async () => ({
-                sub: 'mock_user_123',
-                email: 'mock@example.com',
-                name: 'Mock User'
-            });
             const user = await this.auth0Client.getUser();
+            if (!user) {
+                throw new Error('Failed to obtain user information');
+            }
             
-
             // 存储用户信息
             this.$window.localStorage.setItem('auth0_user', JSON.stringify(user));
             
-            // 重定向到主页面或指定页面
+            // 重定向前清理 URL 中的认证参数
+            const cleanUrl = window.location.origin + '/messenger';
+            window.history.replaceState({}, document.title, cleanUrl);
+            
+            // 重定向到主页面
             this.$window.location.href = '/messenger';
         } catch (error) {
             console.error('Auth0 callback handling failed:', error);
             this.$scope.$emit('showAlert', {
                 type: 'error',
-                message: 'welcome.AUTH0_CALLBACK_FAILED'
+                message: `welcome.AUTH0_CALLBACK_FAILED: ${error.message || 'Unknown error'}`
             });
         }
     }

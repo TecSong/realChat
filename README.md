@@ -30,7 +30,23 @@ RealChat is a privacy-focused end-to-end encrypted instant messaging application
 
 ![Screenshot](https://realchat.world/images/webclient_header.png)
 
-## Technical Features
+## Team Information
+
+**Project Members**
+
+- Name: Yiko Song
+  - Discord Username: Yiko
+  - Devfolio Username: Yiko
+  - Github Username: TecSong
+  - Role: Lead Developer
+
+## Technical Approach
+
+- **Components**
+  - [x] Frontend (TypeScript + AngularJS)
+
+
+### Technical Features
 
 - WorldID biometric authentication
 - WebRTC end-to-end encrypted communication
@@ -38,24 +54,26 @@ RealChat is a privacy-focused end-to-end encrypted instant messaging application
 - TypeScript + AngularJS development
 - PWA offline support
 
-For more technical details, please refer to [RealChat Encryption Whitepaper](https://realchat.world/whitepaper.pdf).
 
-## Why Choose RealChat?
+## Project Goals & Future Plans
 
-1. **Authenticity Guarantee**
-   - WorldID biometric authentication ensures all chat partners are real humans
-   - Effectively prevents bots and fake accounts
-   - Eliminates romance scams
+- Continue developing enhanced privacy features
+- Expand WorldID integration capabilities
+- Build larger community of privacy-focused users
+- Seeking contributors for:
+  - Mobile app development
+  - Security auditing
+  - UI/UX improvements
 
-2. **Privacy Protection**
-   - End-to-end encryption ensures message security
-   - Completely anonymous chat
-   - No personal information collection
+## Lessons Learned
 
-3. **Usability**
-   - Simple and intuitive interface
-   - Cross-platform support
-   - Rich instant messaging features
+- Implementing end-to-end encryption requires careful architectural planning
+- WorldID integration provides strong anti-bot protection while maintaining privacy
+- WebRTC + SaltyRTC combination offers excellent security for real-time communication
+- Key reusable components:
+  - WorldID authentication module
+  - E2E encryption layer
+  - Real-time messaging infrastructure
 
 ## Development Guide
 
@@ -165,3 +183,13 @@ Please follow our coding standards and include appropriate tests.
 - Regular security audits are performed
 
 For more details, see our [Security Policy](SECURITY.md).
+
+## Project Links
+
+- Website: https://realchat.world
+- Documentation: [RealChat Encryption Whitepaper](https://realchat.world/whitepaper.pdf)
+- Source Code: [GitHub Repository](https://github.com/realchat/realchat-web)
+
+## Video Demo
+
+[Demo video link to be added]
